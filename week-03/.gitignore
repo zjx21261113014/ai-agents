@@ -1,0 +1,22 @@
+# 虚拟环境与 Python 缓存
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+# LaTeX 中间文件（保留 .tex 源文件与结果）
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+
+# 凭据
+.env
+.env.*
+!.env.example
+
+# 说明：results.csv、results-table.tex、results-params.tex、results.png、
+# report.pdf 是本次实验的真实结果，按 Guide 要求纳入版本管理，故不忽略。
