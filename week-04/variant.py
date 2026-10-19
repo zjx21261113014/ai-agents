@@ -11,4 +11,11 @@ def make_variant(source, seed, index, replacement):
     新字典、新列表与 source 独立；不同调用之间也不能共享它们。
     参数恰好与原配置相同，仍须返回独立方案。
     """
-    raise NotImplementedError("请先与 Agent 核验测试，再实现 make_variant")
+    # 第一层：复制字典，返回方案与 source 是不同对象。
+    variant = source.copy()
+    # 第二层：复制 sample_sizes 列表；本题列表元素是不可变整数。
+    variant["sample_sizes"] = source["sample_sizes"].copy()
+    # 只更新新方案中的指定字段与位置，source 不受影响。
+    variant["seed"] = seed
+    variant["sample_sizes"][index] = replacement
+    return variant
