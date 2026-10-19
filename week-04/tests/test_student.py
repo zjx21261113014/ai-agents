@@ -81,3 +81,28 @@ def test_two_calls_with_same_parameters_are_independent(make_variant):
     assert second == EXPECTED
     assert source == SOURCE
 
+
+def test_unchanged_parameters_still_create_independent_results(make_variant):
+    """选做反例：参数与原值相同时，内容比较会漏掉共享，必须查身份。"""
+    source = fresh_source()
+    original = deepcopy(SOURCE)
+
+    result = make_variant(
+        source,
+        source["seed"],
+        INDEX,
+        source["sample_sizes"][INDEX],
+    )
+
+    # 内容检查对“直接共享”故障同样成立，所以不能只靠 ==。
+    assert result == original
+    assert source == original
+
+    # 身份检查才能拒绝共享：新字典、新列表都不应是 source 的对象。
+    assert result is not source
+    assert result["sample_sizes"] is not source["sample_sizes"]
+
+    # 后续修改只影响新方案，source 保持原内容。
+    result["sample_sizes"][INDEX] = source["sample_sizes"][INDEX] + 1
+    assert source == original
+
