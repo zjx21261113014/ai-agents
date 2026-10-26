@@ -1,0 +1,69 @@
+{
+  "n": 2,
+  "seed": 2,
+  "x0": [
+    -1.0,
+    2.0
+  ],
+  "x_star": [
+    5.6027135359321925,
+    -1.4165426097397362
+  ],
+  "lambda_min": 0.07207569833538455,
+  "lambda_max": 6.368315887276511,
+  "kappa": 88.35593735968114,
+  "sqrt_kappa": 9.399783899626689,
+  "alpha_gd_hb": 0.3105401237508731,
+  "beta_heavy_ball": 0.7231674482548316,
+  "rho_heavy_ball": 0.8503925259871653,
+  "alpha_nesterov": 0.15702738647087783,
+  "beta_nesterov": 0.6523604088090122,
+  "rtol": 1e-10,
+  "methods": {
+    "bb1": {
+      "label": "BB1",
+      "params": {
+        "alpha": 0.15702738647087783
+      },
+      "iters": 3,
+      "final_err": 2.8226751748531428e-14,
+      "converged": true,
+      "cpu_time": 6.837599999443e-05
+    },
+    "gd": {
+      "label": "GD($\\alpha=\\alpha_\\star$)",
+      "params": {
+        "alpha": 0.3105401237508731
+      },
+      "iters": 1018,
+      "final_err": 7.299544740902249e-10,
+      "converged": true,
+      "cpu_time": 0.00842436500000332,
+      "rho_theory": 0.9776176037194991
+    },
+    "hb": {
+      "label": "Heavy Ball",
+      "params": {
+        "alpha": 0.3105401237508731,
+        "beta": 0.7231674482548316
+      },
+      "iters": 162,
+      "final_err": 7.038342155590759e-10,
+      "converged": true,
+      "cpu_time": 0.0015860309999951028,
+      "rho_theory": 0.8503925259871653
+    },
+    "nes": {
+      "label": "Nesterov($\\alpha=1/\\lambda_{\\max}$)",
+      "params": {
+        "alpha": 0.15702738647087783,
+        "beta": 0.6523604088090122
+      },
+      "iters": 665,
+      "final_err": 7.419993028710617e-10,
+      "converged": true,
+      "cpu_time": 0.007925698999997621,
+      "rho_theory": 0.9659387411133068
+    }
+  }
+}

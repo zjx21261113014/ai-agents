@@ -1,0 +1,40 @@
+% PDF 排版微调（由 build_pdf.sh 通过 pandoc -H 引入）
+\usepackage{etoolbox}
+\usepackage{graphicx}
+
+% 图片统一缩放到版心宽度，保持纵横比
+\setkeys{Gin}{width=\linewidth,keepaspectratio}
+
+% 表格自动缩小字号（7.8pt：既压住宽度，又高于位图字体的 7pt 门槛）
+% 列表前保证至少 5 行空间，避免"图 X 结论"标签孤立在页底
+\usepackage{needspace}
+\AtBeginEnvironment{itemize}{\needspace{5\baselineskip}}
+\AtBeginEnvironment{longtable}{\fontsize{7.8}{9.2}\selectfont}
+\setlength{\tabcolsep}{3.5pt}
+\renewcommand{\arraystretch}{1.05}
+\setlength{\LTpre}{6pt}
+\setlength{\LTpost}{6pt}
+
+% 代码块字号与换行
+\AtBeginEnvironment{Shaded}{\small}
+
+% 标题层级间距收紧
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+\titlespacing*{\subsection}{0pt}{8pt}{3pt}
+\titlespacing*{\subsubsection}{0pt}{6pt}{2pt}
+
+
+% 中文段落微调
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt plus 1pt}
+
+% 允许页面内容轻微宽松，减少 overfull 警告
+\sloppy
+
+% 图注
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,labelformat=empty,skip=3pt}
+
+% 宽幅多面板图可旋转为横向整页
+\usepackage{rotating}

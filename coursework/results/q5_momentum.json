@@ -1,0 +1,233 @@
+{
+  "n": 50,
+  "seed": 0,
+  "rtol": 1e-10,
+  "kappa": 22468.983345533634,
+  "L": 0.011405987120962214,
+  "alpha_main": 0.005702993560481107,
+  "alpha_edge": 0.011405987120962214,
+  "beta_hb_classic": 0.9736674489502839,
+  "beta_nes_classic": 0.9867458887425292,
+  "hb_tuned_main": {
+    "beta": 0.9867019728308205,
+    "rho": 0.9933287335171678,
+    "alpha": 0.005702993560481107,
+    "scheme": "heavy_ball"
+  },
+  "nes_tuned_main": {
+    "beta": 0.9867458887425102,
+    "rho": 0.9933287335171592,
+    "alpha": 0.005702993560481107,
+    "scheme": "nesterov"
+  },
+  "hb_tuned_edge": {
+    "beta": 0.9812198205165036,
+    "rho": 0.9905654044617668,
+    "alpha": 0.011405987120962214,
+    "scheme": "heavy_ball"
+  },
+  "nes_tuned_edge": {
+    "beta": 0.0,
+    "rho": 0.9999999999999998,
+    "alpha": 0.011405987120962214,
+    "scheme": "nesterov"
+  },
+  "rho_gd_main": 0.999955494203515,
+  "rho_gd_edge": 0.9999999999999998,
+  "rho_1_minus_inv_sqrt_kappa": 0.9933287335171688,
+  "speedup_sqrt_kappa": 149.89657549635226,
+  "main": {
+    "GD": {
+      "name": "GD",
+      "beta_label": "—",
+      "rho_theory": 0.999955494203515,
+      "rho_fit": 0.9999554938776064,
+      "semilog_r2": 0.999999999902618,
+      "rho_tail_median": 0.999955482920648,
+      "iters": 516873,
+      "converged": true,
+      "final_f": 1.301851224385223e-20,
+      "final_err": 1.8243667153628175e-09,
+      "cpu_time": 4.541928057,
+      "iters_to": {
+        "1e-04": 206483,
+        "1e-06": 309954,
+        "1e-08": 413425,
+        "1e-10": 516873
+      }
+    },
+    "Heavy Ball（经典 β）": {
+      "name": "Heavy Ball（经典 β）",
+      "beta_label": "0.973667",
+      "rho_theory": 0.9981882675002717,
+      "rho_fit": 0.9981882517253339,
+      "semilog_r2": 0.9999999998646634,
+      "rho_tail_median": 0.9981874569340652,
+      "iters": 12727,
+      "converged": true,
+      "final_f": 1.3001136362774148e-20,
+      "final_err": 1.824068972408201e-09,
+      "cpu_time": 0.1385349340000026,
+      "iters_to": {
+        "1e-04": 5110,
+        "1e-06": 7649,
+        "1e-08": 10189,
+        "1e-10": 12727
+      }
+    },
+    "Heavy Ball（最优 β）": {
+      "name": "Heavy Ball（最优 β）",
+      "beta_label": "0.986702",
+      "rho_theory": 0.9933287335171678,
+      "rho_fit": 0.9937302883618402,
+      "semilog_r2": 0.9999227751944061,
+      "rho_tail_median": 0.9935820776574994,
+      "iters": 3931,
+      "converged": true,
+      "final_f": 1.3091768848443851e-20,
+      "final_err": 1.8171256587117258e-09,
+      "cpu_time": 0.03859077199999916,
+      "iters_to": {
+        "1e-04": 1753,
+        "1e-06": 2490,
+        "1e-08": 3214,
+        "1e-10": 3931
+      }
+    },
+    "Nesterov（常数 β）": {
+      "name": "Nesterov（常数 β）",
+      "beta_label": "0.986746",
+      "rho_theory": 0.9933287335171688,
+      "rho_fit": 0.9937302117666166,
+      "semilog_r2": 0.9999228831058549,
+      "rho_tail_median": 0.9935817249001859,
+      "iters": 3930,
+      "converged": true,
+      "final_f": 1.290352034468557e-20,
+      "final_err": 1.8163694261771029e-09,
+      "cpu_time": 0.04552630799999946,
+      "iters_to": {
+        "1e-04": 1752,
+        "1e-06": 2489,
+        "1e-08": 3213,
+        "1e-10": 3930
+      }
+    },
+    "Nesterov（默认 β_k）": {
+      "name": "Nesterov（默认 β_k）",
+      "beta_label": "(k-1)/(k+2)",
+      "rho_theory": NaN,
+      "rho_fit": 0.999965317160928,
+      "semilog_r2": 0.6963708249398374,
+      "rho_tail_median": 0.9999286738699251,
+      "iters": 206375,
+      "converged": true,
+      "final_f": 2.242705851991112e-21,
+      "final_err": 7.542823765878511e-10,
+      "cpu_time": 2.7991811019999986,
+      "iters_to": {
+        "1e-04": 4352,
+        "1e-06": 14243,
+        "1e-08": 121140,
+        "1e-10": 206375
+      }
+    }
+  },
+  "edge": {
+    "GD": {
+      "name": "GD",
+      "beta_label": "—",
+      "rho_theory": 0.9999999999999998,
+      "rho_fit": 0.9999114363716305,
+      "semilog_r2": 0.9999842174272269,
+      "rho_tail_median": 0.9999158633514262,
+      "iters": 60000,
+      "converged": false,
+      "final_f": 0.06359929751323858,
+      "final_err": 0.08977777214174691,
+      "cpu_time": 0.5370029489999979,
+      "iters_to": {
+        "1e-04": null,
+        "1e-06": null,
+        "1e-08": null,
+        "1e-10": null
+      }
+    },
+    "Heavy Ball（最优 β）": {
+      "name": "Heavy Ball（最优 β）",
+      "beta_label": "0.981220",
+      "rho_theory": 0.9905654044617668,
+      "rho_fit": 0.991132520067153,
+      "semilog_r2": 0.9999226429357003,
+      "rho_tail_median": 0.990921872883324,
+      "iters": 2776,
+      "converged": true,
+      "final_f": 1.300930263482277e-20,
+      "final_err": 1.8098686752195905e-09,
+      "cpu_time": 0.029258743999996284,
+      "iters_to": {
+        "1e-04": 1238,
+        "1e-06": 1758,
+        "1e-08": 2270,
+        "1e-10": 2776
+      }
+    },
+    "Heavy Ball（经典 β）": {
+      "name": "Heavy Ball（经典 β）",
+      "beta_label": "0.973667",
+      "rho_theory": 0.996036550734465,
+      "rho_fit": 0.9960365190261374,
+      "semilog_r2": 0.9999999998654147,
+      "rho_tail_median": 0.9960350589059352,
+      "iters": 5841,
+      "converged": true,
+      "final_f": 1.2979394298369946e-20,
+      "final_err": 1.8206236035369906e-09,
+      "cpu_time": 0.06776240100000308,
+      "iters_to": {
+        "1e-04": 2362,
+        "1e-06": 3522,
+        "1e-08": 4682,
+        "1e-10": 5841
+      }
+    },
+    "Nesterov（常数 β）": {
+      "name": "Nesterov（常数 β）",
+      "beta_label": "0.986746",
+      "rho_theory": 2.398198803811275,
+      "rho_fit": 2.3945928146906326,
+      "semilog_r2": 0.9999987492827881,
+      "rho_tail_median": 2.3981056930430884,
+      "iters": 150,
+      "converged": false,
+      "final_f": 8.53004732370784e+112,
+      "final_err": 3.1192144169239673e+55,
+      "cpu_time": 0.0016365159999978118,
+      "iters_to": {
+        "1e-04": null,
+        "1e-06": null,
+        "1e-08": null,
+        "1e-10": null
+      }
+    },
+    "Nesterov（默认 β_k）": {
+      "name": "Nesterov（默认 β_k）",
+      "beta_label": "(k-1)/(k+2)",
+      "rho_theory": NaN,
+      "rho_fit": 2.3708919370713746,
+      "semilog_r2": 0.9999848007566708,
+      "rho_tail_median": 2.389135361286116,
+      "iters": 150,
+      "converged": false,
+      "final_f": 3.9283414200393885e+107,
+      "final_err": 6.69382040895885e+52,
+      "cpu_time": 0.0015074450000014394,
+      "iters_to": {
+        "1e-04": null,
+        "1e-06": null,
+        "1e-08": null,
+        "1e-10": null
+      }
+    }
+  }
+}
