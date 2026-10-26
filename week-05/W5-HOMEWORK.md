@@ -138,8 +138,34 @@ Left contains 2 more items, first extra item: 0
 
 最终返回 `[9, 1]`，原数组/列表逐项未变。关键点是 `0` 不是正数，且筛选发生在平方之前；若先平方再筛选，负数也会变成正数，结果就错了。
 
-## 7. CI 状态
+## 7. CI 验收
 
-- 本地默认验收：`29 passed`。
-- 远端 Actions：未执行。当前仓库 `origin` 仍指向教师仓库 `wxyinucas/ai-agents`，按要求不向教师仓库 push。
-- 待办：把 `origin` 换为自己的 GitHub 个人仓库（教师仓库保留为 `upstream`），启用 Actions 的 **W5 data operations** 工作流，然后提交并 push `week-05/` 的改动，确认运行编号与本次提交一致。
+### 远端配置
+
+```text
+origin    git@github.com:zjx21261113014/ai-agents.git   （个人仓库）
+upstream  https://github.com/wxyinucas/ai-agents.git    （教师仓库，只读更新用）
+```
+
+### 提交与推送
+
+```text
+$ git commit -m "Complete W5 data operations exercises"
+[main bd61bee] Complete W5 data operations exercises
+ 4 files changed, 229 insertions(+), 46 deletions(-)
+
+$ git push -u origin main
+ * [new branch]      main -> main
+```
+
+本次提交：`bd61bee`。本地与远端 HEAD 一致。
+
+### Actions 运行结果
+
+- 工作流：**W5 data operations**（`.github/workflows/week-05.yml`），`state=active`。
+- 运行 `#1`，`event=push`，`head_sha=bd61bee`，`conclusion=success`。
+- 作业 **W5 acceptance** 的步骤全部成功，其中
+  `Run student acceptance tests` → **success**。
+  由于个人仓库不是 `wxyinucas/ai-agents`，工作流按规则选择 `student`，检查的是 `operations.py` 中的我的实现（不是教师参考）。
+
+结论：本次提交 `bd61bee` 通过远端同一套学生验收，与本地 `29 passed` 一致。
