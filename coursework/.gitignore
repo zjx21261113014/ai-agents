@@ -1,5 +1,8 @@
 .venv/
 __pycache__/
 *.pyc
-# pandoc 预处理中间产物（由 pdf/build_pdf.sh 生成）
+
+# 构建中间产物（由 pdf/build_pdf.sh 与 docx/build_docx.py 生成）
 pdf/_REPORT_pdf.md
+docx/_REPORT_docx.md
+docx/reference.docx

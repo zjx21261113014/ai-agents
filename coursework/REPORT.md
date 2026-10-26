@@ -516,6 +516,9 @@ cd coursework
 uv sync                                   # numpy / matplotlib（Python >= 3.12）
 uv run python run_all.py                  # exp1..exp7 全跑，约 140 s
 uv run python exp6_contour.py             # 也可单独运行某一题
+bash pdf/build_pdf.sh                     # REPORT.md -> REPORT.pdf
+uv run --with pypandoc-binary --with python-docx \
+       python docx/build_docx.py          # REPORT.md -> REPORT.docx
 ```
 
-产物为 `figures/fig1…fig7_*.png` 与 `results/q1…sec2_*.json`；本报告所有数值都直接取自这些 JSON。
+产物为 `figures/fig1…fig7_*.png` 与 `results/q1…sec2_*.json`；本报告所有数值都直接取自这些 JSON。`REPORT.pdf` 与 `REPORT.docx` 均从同一份 `REPORT.md` 生成，内容、公式与插图完全一致。
