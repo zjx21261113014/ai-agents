@@ -3,7 +3,9 @@
 
 def pop_last(items):
     """原地删除整数列表的最后一项并返回它；空列表返回 None。"""
-    raise NotImplementedError("请实现 pop_last：核对返回值和原列表")
+    if not items:
+        return None
+    return items.pop()
 
 
 def positive_squares(values):
@@ -12,7 +14,12 @@ def positive_squares(values):
     values 是普通整数列表或一维整数 NumPy 数组。
     空输入或没有正数时返回空列表。
     """
-    raise NotImplementedError("请实现 positive_squares：筛选、变换并收集")
+    result = []
+    for value in values:
+        if value > 0:
+            # int() 把 NumPy 整数转成 Python int，结果始终是普通列表。
+            result.append(int(value) ** 2)
+    return result
 
 
 def positive_square_map(record):
@@ -21,4 +28,4 @@ def positive_square_map(record):
     record 的键是字符串，值是整数；保留键的原相对顺序。
     空输入或没有正数值时返回空字典。
     """
-    raise NotImplementedError("请实现 positive_square_map：按键值对遍历")
+    return {key: value ** 2 for key, value in record.items() if value > 0}
