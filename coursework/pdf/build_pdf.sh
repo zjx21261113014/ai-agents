@@ -41,8 +41,8 @@ fig = re.compile(r"^!\[([^\]]+)\]\((figures/[^)]+)\)$", re.M)
 
 def _fig(m):
     cap, path = m.group(1), m.group(2)
-    # 图 6 是 2×2 等值线，版心全宽时高度铺满一页，会被整块顶到下一页
-    w = "0.80\\linewidth" if "fig6" in path else "\\linewidth"
+    # 图 6 是 2×2 等值线，且接近正方形：全宽时高 15.9cm，整块顶走会留下半页空白
+    w = "0.74\\linewidth" if "fig6" in path else "\\linewidth"
     return (
         "```{=latex}\n"
         "\\begin{center}\n"
@@ -68,13 +68,20 @@ out = out.replace(
 
 # 注：表格不做全局 needspace（会让多页出现大片留白），只在必要时逐处处理
 
-# "图 N 结论" 标签段落前留够行数，避免标签孤立在页底
-lab = re.compile(r"^(\*\*图 \d+ 结论\*\*)", re.M)
-out, m = lab.subn(
-    lambda x: "```{=latex}\n\\needspace{8\\baselineskip}\n```\n\n" + x.group(1),
+# 表标题居中：正文有 \parindent，表题不该跟着缩进两字
+# 用 {\centering ...} 而不是 center 环境，避免额外上下梢
+cap = re.compile(r"^\*\*(表 [^*]+)\*\*\s*$", re.M)
+out, t = cap.subn(
+    lambda x: (
+        "```{=latex}\n"
+        "\\begin{center}\n"
+        f"\\textbf{{{x.group(1)}}}\n"
+        "\\end{center}\n"
+        "```"
+    ),
     out,
 )
-print(f"preprocessed: wide figure -> sidewaysfigure, {m} conclusion labels guarded")
+print(f"preprocessed: {t} table captions centred")
 
 pathlib.Path("pdf/_REPORT_pdf.md").write_text(out, encoding="utf-8")
 PY

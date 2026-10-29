@@ -208,6 +208,7 @@ def fix_figures(doc: Document) -> None:
         elif p.style.name in ("Image Caption", "Table Caption", "Caption"):
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.paragraph_format.first_line_indent = Cm(0)
+            clear_first_line_chars(p)
             p.paragraph_format.space_before = Pt(2)
             p.paragraph_format.space_after = Pt(10)
             if i > 0:
@@ -370,6 +371,7 @@ def style_table_captions(doc: Document) -> None:
         fmt.left_indent = Cm(0)
         fmt.right_indent = Cm(0)
         fmt.first_line_indent = Cm(0)
+        clear_first_line_chars(para)
         fmt.space_before = Pt(8)
         fmt.space_after = Pt(2)
         fmt.keep_with_next = True
@@ -534,6 +536,37 @@ def fix_tables(doc: Document) -> None:
     print(f"postprocess: {len(doc.tables)} tables styled")
 
 
+def set_first_line_chars(para, chars: int = 200) -> None:
+    """写 Word 的「首行缩进 N 字符」：firstLineChars 跟随字号，firstLine 做
+    兼容兜底（10.5pt 下 2 字 = 21pt = 420 twips）。"""
+    p_pr = para._p.get_or_add_pPr()
+    ind = p_pr.find(qn("w:ind"))
+    if ind is None:
+        ind = OxmlElement("w:ind")
+        # w:ind 在 OOXML 顺序里位于 w:spacing 之后、w:contextualSpacing 之前
+        p_pr.insert_element_before(
+            ind, "w:contextualSpacing", "w:mirrorIndents", "w:suppressOverlap",
+            "w:jc", "w:textDirection", "w:textAlignment", "w:textboxTightWrap",
+            "w:outlineLvl", "w:divId", "w:cnfStyle", "w:rPr", "w:sectPr",
+            "w:pPrChange",
+        )
+    ind.set(qn("w:firstLineChars"), str(chars))
+    ind.set(qn("w:firstLine"), str(int(chars / 100 * 10.5 * 20)))
+
+
+def clear_first_line_chars(para) -> None:
+    """去掉首行缩进：Word 优先看 firstLineChars，只清 firstLine 不会生效。"""
+    p_pr = para._p.pPr
+    if p_pr is None:
+        return
+    ind = p_pr.find(qn("w:ind"))
+    if ind is None:
+        return
+    for attr in ("w:firstLineChars", "w:firstLine", "w:hangingChars", "w:hanging"):
+        if ind.get(qn(attr)) is not None:
+            del ind.attrib[qn(attr)]
+
+
 def fix_body(doc: Document) -> None:
     """正文：中文首行缩进 2 字，行距 1.25，段前段后 0。"""
     body_styles = {"Normal", "Body Text", "First Paragraph", "Compact"}
@@ -542,11 +575,15 @@ def fix_body(doc: Document) -> None:
         name = p.style.name
         if name in body_styles:
             pf = p.paragraph_format
-            # pandoc 的 First Paragraph 已经是首段，不必缩进
-            pf.first_line_indent = Cm(0)
             pf.line_spacing = 1.25
             pf.space_before = Pt(0)
             pf.space_after = Pt(4)
+            if name == "Compact":
+                # 列表项：项目符号已经占位，再缩进会参差不齐
+                pf.first_line_indent = Cm(0)
+            else:
+                pf.first_line_indent = Pt(21)
+                set_first_line_chars(p, 200)
         elif heading_like.match(name):
             pf = p.paragraph_format
             lo = {"Heading 1": 12, "Heading 2": 10, "Heading 3": 8}.get(name, 0)

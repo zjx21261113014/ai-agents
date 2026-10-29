@@ -25,9 +25,10 @@
 \titlespacing*{\subsubsection}{0pt}{6pt}{2pt}
 
 
-% 中文段落微调
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{4pt plus 1pt}
+% 中文段落：首行缩进两字符（含每节第一段），段间只留很短的空隙
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{2pt plus 1pt}
 
 % 允许页面内容轻微宽松，减少 overfull 警告
 \sloppy
