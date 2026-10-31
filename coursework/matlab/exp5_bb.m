@@ -110,7 +110,7 @@ for i = 1:4
 end
 set(gca, 'xscale', 'log', 'yscale', 'log'); grid on;
 xlim([1, XMAX]); ylim([1e-28, 3 * f0]);
-set(gca, 'ytick', 10.^(0:-4:-24));
+set(gca, 'ytick', 10.^(-24:4:0));   % 刻度必须递增，MATLAB 不接受递减向量
 xlabel('迭代步数 k（对数轴）'); ylabel('f(x_k)');
 title('(a) 步数 — f(x_k)：BB 非单调、整体更快');
 legend(hl, nm, 'location', 'southwest');

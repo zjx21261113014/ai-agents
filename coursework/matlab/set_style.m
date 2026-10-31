@@ -11,9 +11,28 @@ if exist('OCTAVE_VERSION', 'builtin')
         catch
         end
     end
-    % 无窗口时 figure 一旦被"显示"，gnuplot 会把整幅图以字符画形式吐到终端，
-    % 把正常的数值输出淹没。默认不可见即可避免。
-    set(0, 'defaultfigurevisible', 'off');
+end
+
+% 无窗口时 figure 一旦被"显示"，gnuplot 会把整幅图以字符画形式吐到终端，
+% 把正常的数值输出淹没；MATLAB 下则会把七个窗口一个个弹出来打断批处理。
+% 默认不可见即可避免。要看得见就手动 figure(n); set(n, 'visible', 'on')。
+set(0, 'defaultfigurevisible', 'off');
+
+% 图上文字是中文。MATLAB 的默认字体在部分 Windows 机器上不含 CJK，会渲染成方框；
+% 按优先级挑一个系统里真实存在的字体，都没有就退回默认（不报错）。
+cand = {'SimHei', 'Microsoft YaHei', 'Noto Sans CJK SC', ...
+        'Source Han Sans SC', 'WenQuanYi Micro Hei', 'STHeiti', 'PingFang SC'};
+try
+    fonts = listfonts;
+    if ischar(fonts), fonts = {fonts}; end
+    for ii = 1:numel(cand)
+        if any(strcmpi(fonts, cand{ii}))
+            set(0, 'defaultaxesfontname', cand{ii});
+            set(0, 'defaulttextfontname', cand{ii});
+            break;
+        end
+    end
+catch
 end
 
 set(0, 'defaultaxesfontsize', 12);

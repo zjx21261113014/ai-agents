@@ -77,7 +77,7 @@ rows = cell(4, 6);
 for i = 1:4
     rows{i, 1} = nm{i};
     rows{i, 2} = sprintf('%d', iters(i));
-    if isfinite(rho_th(i))
+    if ~isnan(rho_th(i)) & ~isinf(rho_th(i))
         rows{i, 3} = sprintf('%.4f', rho_th(i));
     else
         rows{i, 3} = '—（自适应）';

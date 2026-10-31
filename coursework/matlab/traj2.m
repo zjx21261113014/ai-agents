@@ -17,7 +17,7 @@ end
 
 t0 = tic;
 for k = 1:n_max
-    if any(~isfinite(x))
+    if any((isnan(x) | isinf(x)))
         break;
     end
     g = p_grad(p, x);
@@ -49,7 +49,7 @@ for k = 1:n_max
     x_prev = x;
     x = x_new;
     xs(:, end + 1) = x;
-    if any(~isfinite(x))
+    if any((isnan(x) | isinf(x)))
         break;
     end
 end

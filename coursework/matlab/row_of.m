@@ -5,17 +5,17 @@ TOLS = [1e-4, 1e-6, 1e-8, 1e-10];
 r = cell(1, 12);
 r{1} = rec.name;
 r{2} = rec.beta_label;
-if isfinite(rec.rho_theory)
+if ~isnan(rec.rho_theory) & ~isinf(rec.rho_theory)
     r{3} = sprintf('%.8f', rec.rho_theory);
 else
     r{3} = '—';
 end
-if isfinite(rec.rho_fit)
+if ~isnan(rec.rho_fit) & ~isinf(rec.rho_fit)
     r{4} = sprintf('%.6f', rec.rho_fit);
 else
     r{4} = '—';
 end
-if isfinite(rec.semilog_r2)
+if ~isnan(rec.semilog_r2) & ~isinf(rec.semilog_r2)
     r{5} = sprintf('%.6f', rec.semilog_r2);
 else
     r{5} = '—';

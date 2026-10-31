@@ -159,7 +159,7 @@ for i = 1:5
 end
 set(gca, 'xscale', 'log', 'yscale', 'log'); grid on;
 xlim([1, XMAX]); ylim([1e-28, 3 * f0]);
-set(gca, 'ytick', 10.^(0:-4:-24));
+set(gca, 'ytick', 10.^(-24:4:0));   % 刻度必须递增，MATLAB 不接受递减向量
 xlabel('迭代步数 k（对数轴）'); ylabel('f(x_k)');
 title('(a) 同一 alpha = L/2：步数 — f(x_k)');
 legend(hl, {'GD', 'HB 经典 beta', 'HB 最优 beta', 'Nes 常数 beta', ...
@@ -199,7 +199,7 @@ for j = 1:3
     e = e(1:n);
     rk = e(2:end) ./ max(e(1:end-1), 1e-300);
     kx = (1:n-1)';
-    m = isfinite(rk) & rk > 0.985 & rk < 1.012;
+    m = ~isnan(rk) & ~isinf(rk) & rk > 0.985 & rk < 1.012;
     plot(kx(m), rk(m), '.', 'color', colc{j}, 'markersize', 3);
 end
 h1 = plot([0, XR], [rho_gd_main, rho_gd_main], ':', 'color', C.GD, 'linewidth', 1.2);

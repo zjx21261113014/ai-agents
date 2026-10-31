@@ -88,7 +88,7 @@ for i = 1:4
     k = (0:h.iters)';
     hc(i) = plot_subsampled(k, h.f, cols{i}, 1.5);
 end
-set(gca, 'yscale', 'log', 'ytick', 10.^(3:-3:-15)); grid on;
+set(gca, 'yscale', 'log', 'ytick', 10.^(-15:3:3)); grid on;   % 刻度必须递增
 xlabel('迭代步数 k'); ylabel('f(x_k)');
 title('(a) 目标函数值（几何衰减，故为直线）');
 legend(hc, {sprintf('\\alpha = L/3 = %.3e', alphas(1)), ...
@@ -111,9 +111,9 @@ for i = 1:4
         semilogy(kk, h.err(1) * rho .^ kk, ':', 'color', cols{i}, 'linewidth', 1.1);
     end
 end
-set(gca, 'yscale', 'log', 'ytick', 10.^(0:-3:-12)); grid on;
+set(gca, 'yscale', 'log', 'ytick', 10.^(-12:3:0)); grid on;   % 刻度必须递增
 xlabel('迭代步数 k'); ylabel('||x_k - x^*||_2');
-title('(b) 误差范数（点线为实测 \\rho^k 参考斜率）');
+title('(b) 误差范数（点线为实测 \rho^k 参考斜率）');
 legend(hc, {'L/3', 'L/2', '3L/4', 'L'}, 'location', 'southwest');
 
 % (c) 理论步数曲线与实测

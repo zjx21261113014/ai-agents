@@ -9,7 +9,7 @@ if nargin < 4, end_frac = 0.95; end
 
 k = k(:);
 e = e(:);
-m = isfinite(e) & (e > 0) & (k > 0);
+m = ~isnan(e) & ~isinf(e) & (e > 0) & (k > 0);
 k = k(m);
 e = e(m);
 N = numel(e);

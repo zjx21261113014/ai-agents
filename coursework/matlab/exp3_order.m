@@ -89,7 +89,7 @@ for i = 1:6
     rk = e(2:end) ./ max(e(1:end-1), 1e-300);
     rho_tail = tail_median(rk, 0.1);
 
-    if isfinite(p_tail) && abs(p_tail - 1) < 0.05
+    if ~isnan(p_tail) & ~isinf(p_tail) && abs(p_tail - 1) < 0.05
         verdict = 'Q-线性，阶 1';
     elseif i == 6
         verdict = '有限步终止';
@@ -97,7 +97,7 @@ for i = 1:6
         verdict = '仅 R-线性';
     end
 
-    if isfinite(rho_theory(i))
+    if ~isnan(rho_theory(i)) & ~isinf(rho_theory(i))
         theo_str = sprintf('%.8f', rho_theory(i));
     else
         theo_str = '—';
@@ -112,7 +112,7 @@ for i = 1:6
     S.iters = hists{i}.iters;
     S.converged = hists{i}.converged;
     S.cpu_time = hists{i}.time(end);
-    if isfinite(rho_theory(i))
+    if ~isnan(rho_theory(i)) & ~isinf(rho_theory(i))
         S.rho_theory = rho_theory(i);
     else
         S.rho_theory = [];
@@ -158,7 +158,7 @@ for i = 1:6
 end
 set(gca, 'yscale', 'log'); grid on;
 xlim([0, XMAX]); ylim([1e-12, 4]);
-set(gca, 'ytick', 10.^(0:-3:-12));
+set(gca, 'ytick', 10.^(-12:3:0));   % 刻度必须递增，MATLAB 不接受递减向量
 xlabel('迭代步数 k'); ylabel('相对误差 ||x_k-x^*|| / ||x_0-x^*||');
 title('(a) 判据 1：semilogy 为直线即 R-线性');
 legend(hl, {'GD(\alpha*)', '最速下降', 'Heavy Ball', 'Nesterov', 'BB1', 'CG'}, ...
@@ -174,7 +174,7 @@ for i = orderly
     e = e(1:n);
     rk = e(2:end) ./ e(1:end-1);
     kk = (1:n-1)';
-    m = isfinite(rk) & rk > 0.95 & rk < 1.06;
+    m = ~isnan(rk) & ~isinf(rk) & rk > 0.95 & rk < 1.06;
     plot(kk(m), rk(m), '.', 'color', cols{i}, 'markersize', 3);
 end
 h1 = plot([0, XMAX], [rho_gd, rho_gd], '--', 'color', C.GD, 'linewidth', 1.1);
@@ -196,7 +196,7 @@ hold on;
 hp = zeros(1, 2);
 for i = [orderly, 5]
     [kk, pk] = coc_p(hists{i}.err);
-    m = isfinite(pk) & abs(pk) < 6 & kk <= XMAX;
+    m = ~isnan(pk) & ~isinf(pk) & abs(pk) < 6 & kk <= XMAX;
     hp(1) = plot(kk(m), min(max(pk(m), -1.5), 5), '.', 'color', cols{i}, 'markersize', 3);
 end
 hp(2) = plot([0, XMAX], [1, 1], '--', 'color', [0.3 0.3 0.3], 'linewidth', 1.3);

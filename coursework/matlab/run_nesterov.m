@@ -43,7 +43,7 @@ while k < max_iter
     f(k + 1) = p_f(p, x);
     err(k + 1) = norm(x - p.x_star) / nd0;
     tt(k + 1) = toc(t_start);
-    if ~isfinite(err(k + 1)) || err(k + 1) > 1e30
+    if (isnan(err(k + 1)) | isinf(err(k + 1))) || err(k + 1) > 1e30
         break;
     end
     if err(k + 1) <= tol

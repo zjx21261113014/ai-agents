@@ -3,7 +3,7 @@ function r = ratios_of(v)
 %   f - f* 在收敛末期会下溢到 1e-26 量级，此时的比值由舍入噪声决定，没有意义。
 
 v = v(:);
-pos = v(isfinite(v) & v > 0);
+pos = v(~isnan(v) & ~isinf(v) & v > 0);
 if isempty(pos)
     r = [];
     return;
@@ -16,5 +16,5 @@ for i = 1:numel(v) - 1
         r(i) = v(i + 1) / max(v(i), 1e-300);
     end
 end
-r = r(isfinite(r));
+r = r(~isnan(r) & ~isinf(r));
 end

@@ -4,32 +4,32 @@ function r = row_of_bb(rec, gd_iters, TOLS)
 r = cell(1, 14);
 r{1} = rec.name;
 
-if isfinite(rec.rho_fit)
+if ~isnan(rec.rho_fit) & ~isinf(rec.rho_fit)
     r{2} = sprintf('%.6f', rec.rho_fit);
 else
     r{2} = '—';
 end
-if isfinite(rec.semilog_r2)
+if ~isnan(rec.semilog_r2) & ~isinf(rec.semilog_r2)
     r{3} = sprintf('%.6f', rec.semilog_r2);
 else
     r{3} = '—';
 end
-if isfinite(rec.rho_tail_median)
+if ~isnan(rec.rho_tail_median) & ~isinf(rec.rho_tail_median)
     r{4} = sprintf('%.6f', rec.rho_tail_median);
 else
     r{4} = '—';
 end
-if isfinite(rec.rho_f_tail_median)
+if ~isnan(rec.rho_f_tail_median) & ~isinf(rec.rho_f_tail_median)
     r{5} = sprintf('%.6f', rec.rho_f_tail_median);
 else
     r{5} = '—';
 end
-if isfinite(rec.frac_rho_f_gt1)
+if ~isnan(rec.frac_rho_f_gt1) & ~isinf(rec.frac_rho_f_gt1)
     r{6} = sprintf('%.0f%%', 100 * rec.frac_rho_f_gt1);
 else
     r{6} = '—';
 end
-if isfinite(rec.geomean_rate)
+if ~isnan(rec.geomean_rate) & ~isinf(rec.geomean_rate)
     r{7} = sprintf('%.5f', rec.geomean_rate);
 else
     r{7} = '—';
