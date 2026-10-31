@@ -31,14 +31,14 @@ REF = ROOT / "docx" / "reference.docx"
 
 # A4 宽 21cm − 两侧 2.1cm 边距 = 16.8cm。按各图宽高比定宽：
 # 16cm 宽时 fig2–fig5 高约 10.5cm、fig7 高 9.5cm，都放得下；
-# fig6 是 1:1 方图，16cm 宽会得到 16cm 高的巨块，压到 12.5cm。
+# fig6 面板内只留一行标注，可以放到 15cm；再宽会顶出页面。
 FIG_WIDTHS = {
     1: "16cm",
     2: "15.5cm",
     3: "15.5cm",
     4: "15.5cm",
     5: "15.5cm",
-    6: "12.5cm",
+    6: "15cm",
     7: "16cm",
 }
 BODY_CN, BODY_EN = "宋体", "Times New Roman"
@@ -224,7 +224,7 @@ def resize_figures(doc: Document) -> None:
     """
     target = {
         1: Cm(16.0), 2: Cm(15.5), 3: Cm(15.5), 4: Cm(15.5),
-        5: Cm(15.5), 6: Cm(12.5), 7: Cm(16.0),
+        5: Cm(15.5), 6: Cm(15.0), 7: Cm(16.0),
     }
     idx = 0
     for p in doc.paragraphs:

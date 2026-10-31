@@ -42,7 +42,7 @@ fig = re.compile(r"^!\[([^\]]+)\]\((figures/[^)]+)\)$", re.M)
 def _fig(m):
     cap, path = m.group(1), m.group(2)
     # 图 6 是 2×2 等值线，且接近正方形：全宽时高 15.9cm，整块顶走会留下半页空白
-    w = "0.74\\linewidth" if "fig6" in path else "\\linewidth"
+    w = "0.86\\linewidth" if "fig6" in path else "\\linewidth"
     return (
         "```{=latex}\n"
         "\\begin{center}\n"
