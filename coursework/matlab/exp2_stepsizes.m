@@ -16,7 +16,9 @@ L = p.L;
 
 names = {'L/3', 'L/2', '3L/4', 'L'};
 alphas = [L / 3, L / 2, 3 * L / 4, L];
-caps = [2e6, 2e6, 2e6, 6e4];
+% 上限按 |ln rho| 反算：ln(1e10)/|ln rho| 分别为 4.91e6 / 3.27e6 / 2.18e6 / inf，
+% 取得略大一些，让前三组都能真跑到 1e-10；alpha = L 理论不收敛，给个观察窗口即可。
+caps = [5.5e6, 4e6, 2.5e6, 6e4];
 cols = {C.HB, C.GD, C.Nesterov, C.BB1};
 
 hist = cell(1, 4);

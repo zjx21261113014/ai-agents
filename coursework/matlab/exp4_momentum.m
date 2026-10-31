@@ -66,7 +66,7 @@ rho_th_main = [rho_gd_main, mom_rho(p.eigvals, alpha_main, beta_hb_classic, 'hea
 
 fprintf('第一部分：alpha = L/2，开始运行 ...\n');
 h_main = cell(1, 5);
-h_main{1} = run_gd(p, x0, alpha_main, 800000, RTOL);
+h_main{1} = run_gd(p, x0, alpha_main, 3.5e6, RTOL);
 h_main{2} = run_hb(p, x0, alpha_main, beta_hb_classic, 100000, RTOL);
 h_main{3} = run_hb(p, x0, alpha_main, hb_tune.beta, 100000, RTOL);
 h_main{4} = run_nesterov(p, x0, alpha_main, 100000, RTOL, 0, beta_nes_classic);
@@ -129,7 +129,7 @@ fprintf('    alpha = L 时任何 beta>0 都发散（rho = %.4f），最优 beta 
 
 %% 图 4
 fig = figure('position', [0 0 1340 920]);
-XMAX = 600000;
+XMAX = 4e6;
 XE = 6000;
 XR = 4000;
 r0 = p.A * x0 - p.b;
@@ -233,7 +233,7 @@ xlabel('迭代步数 k'); ylabel('||x_k - x^*||_2');
 title('(d) 极端情形 alpha = L = 2/lam_max：GD 停滞，动量法仍收敛');
 legend(hl, {'GD', 'HB 经典 beta', 'HB 最优 beta', 'Nes 常数 beta', 'Nes 默认 beta_k'}, ...
        'location', 'southwest');
-text(0.42 * XE, 5e2, 'GD 停滞在 1.2e-02，lam_max 分量不衰减', 'fontsize', 9);
+text(0.42 * XE, 5e2, sprintf('GD 停滞在 %.1e，lam_max 分量不衰减', h_edge{1}.err(end)), 'fontsize', 9);
 text(0.42 * XE, 5e1, 'Nes：外推点取梯度，alpha = L 时发散', 'fontsize', 9);
 text(0.42 * XE, 5e0, 'HB：稳定区间 0 < alpha < 2L，仍收敛', 'fontsize', 9);
 

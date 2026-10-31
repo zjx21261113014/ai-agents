@@ -57,9 +57,9 @@ cols = {C.GD, C.SD, C.HB, C.Nesterov, C.BB1, C.CG};
 
 fprintf('开始运行六种方法 ...\n');
 hists = cell(1, 6);
-hists{1} = run_gd(p, x0, alpha_opt, 400000, RTOL);
+hists{1} = run_gd(p, x0, alpha_opt, 2e6, RTOL);
 fprintf('  GD(alpha*) 完成，%d 步\n', hists{1}.iters);
-hists{2} = run_sd(p, x0, 300000, RTOL);
+hists{2} = run_sd(p, x0, 2e6, RTOL);
 fprintf('  最速下降   完成，%d 步\n', hists{2}.iters);
 hists{3} = run_hb(p, x0, alpha_hb, beta_hb, 20000, RTOL);
 fprintf('  Heavy Ball 完成，%d 步\n', hists{3}.iters);
@@ -163,7 +163,9 @@ xlabel('迭代步数 k'); ylabel('相对误差 ||x_k-x^*|| / ||x_0-x^*||');
 title('(a) 判据 1：semilogy 为直线即 R-线性');
 legend(hl, {'GD(\alpha*)', '最速下降', 'Heavy Ball', 'Nesterov', 'BB1', 'CG'}, ...
        'location', 'southeast');
-text(0.03 * XMAX, 1e-11, 'GD 与最速下降 5000 步只降 0.6 倍', 'fontsize', 9);
+text(0.03 * XMAX, 1e-11, sprintf('GD 与最速下降 %d 步只降到 %.2f 倍', ...
+     XMAX, hists{1}.err(min(numel(hists{1}.err), XMAX + 1)) / hists{1}.err(1)), ...
+     'fontsize', 9);
 
 % (b) rho_k
 subplot(2, 2, 2);

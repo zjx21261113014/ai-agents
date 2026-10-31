@@ -68,6 +68,13 @@ out = out.replace(
 
 # 注：表格不做全局 needspace（会让多页出现大片留白），只在必要时逐处处理
 
+# 表 6a 的题注正好压在页底时，表体整块会跑到下一页，留下一个只有题注的孤儿行
+out = out.replace(
+    "\n**表 6a：收敛速率**",
+    "\n```{=latex}\n\\needspace{9\\baselineskip}\n```\n\n**表 6a：收敛速率**",
+    1,
+)
+
 # 表标题居中：正文有 \parindent，表题不该跟着缩进两字
 # 用 {\centering ...} 而不是 center 环境，避免额外上下梢
 cap = re.compile(r"^\*\*(表 [^*]+)\*\*\s*$", re.M)

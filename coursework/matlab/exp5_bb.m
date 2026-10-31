@@ -35,8 +35,8 @@ fprintf('BB 步长的理论区间：[1/lam_max, 1/lam_min] = [%.6e, %.6e]，\n',
 fprintf('  其右端是 GD 稳定上界 2/lam_max = %.6e 的 %.1f 倍\n\n', L, p.kappa / 2);
 
 fprintf('开始运行 ...\n');
-h_gd_half = run_gd(p, x0, alpha_gd, 800000, RTOL);
-h_gd_opt = run_gd(p, x0, alpha_star, 800000, RTOL);
+h_gd_half = run_gd(p, x0, alpha_gd, 3.5e6, RTOL);
+h_gd_opt = run_gd(p, x0, alpha_star, 2e6, RTOL);
 h_bb1 = run_bb(p, x0, 1, 400000, RTOL);
 h_bb2 = run_bb(p, x0, 2, 400000, RTOL);
 fprintf('  GD(L/2)  %7d 步\n', h_gd_half.iters);
@@ -88,7 +88,7 @@ fprintf('     一次性消掉慢方向，故台阶宽、总步数少；BB2 的 a
 
 %% 图 5
 fig = figure('position', [0 0 1340 920]);
-XMAX = 600000;
+XMAX = 4e6;
 r0 = p.A * x0 - p.b;
 f0 = 0.5 * (r0' * r0);
 
